@@ -3,12 +3,15 @@ package com.codingkiddo.hibernateapp.domain;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import java.math.BigDecimal;
 import java.time.OffsetDateTime;
 
 @Entity
 @Table(name = "orders")
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class Order {
 
     @Id
