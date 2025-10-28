@@ -1,5 +1,4 @@
--- Flyway V1: initial schema
--- Sequences with allocation size 50 to match JPA @SequenceGenerator(allocationSize = 50)
+-- V1: initial schema
 CREATE SEQUENCE IF NOT EXISTS customer_seq INCREMENT BY 50 START WITH 1;
 CREATE SEQUENCE IF NOT EXISTS order_seq INCREMENT BY 50 START WITH 1;
 

@@ -1,4 +1,4 @@
-
+-- V2: add audit timestamps to customers
 ALTER TABLE customers
     ADD COLUMN IF NOT EXISTS created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
     ADD COLUMN IF NOT EXISTS updated_at TIMESTAMPTZ;

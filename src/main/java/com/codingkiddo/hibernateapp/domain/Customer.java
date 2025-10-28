@@ -7,6 +7,8 @@ import org.hibernate.annotations.NaturalId;
 import org.hibernate.annotations.NaturalIdCache;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import java.time.OffsetDateTime;
 import java.util.HashSet;
@@ -18,6 +20,7 @@ import java.util.Set;
     @Index(name="ix_customer_status", columnList = "status")
 })
 @NaturalIdCache
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class Customer {
 
     public enum Status { ACTIVE, SUSPENDED }
@@ -45,6 +48,7 @@ public class Customer {
 
     @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     @BatchSize(size = 50)
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     private Set<Order> orders = new HashSet<>();
 
     @CreationTimestamp

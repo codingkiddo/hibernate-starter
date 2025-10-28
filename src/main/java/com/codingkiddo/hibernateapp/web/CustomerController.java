@@ -1,12 +1,12 @@
 package com.codingkiddo.hibernateapp.web;
 
 import com.codingkiddo.hibernateapp.domain.Customer;
-import com.codingkiddo.hibernateapp.domain.Order;
 import com.codingkiddo.hibernateapp.repository.CustomerRepo;
 import com.codingkiddo.hibernateapp.service.CustomerService;
 import com.codingkiddo.hibernateapp.web.dto.CreateCustomerRequest;
 import com.codingkiddo.hibernateapp.web.dto.CreateOrderRequest;
 import com.codingkiddo.hibernateapp.web.dto.CustomerDto;
+import com.codingkiddo.hibernateapp.web.dto.CustomerSummary;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -52,6 +52,15 @@ public class CustomerController {
         Pageable pageable = PageRequest.of(page, size);
         return customerRepo.findAllByStatus(status, pageable)
                 .map(c -> toDto(c, false));
+    }
+
+    @GetMapping("/customers/summaries")
+    public Page<CustomerSummary> listCustomerSummaries(
+            @RequestParam(defaultValue = "ACTIVE") Customer.Status status,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "20") int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        return customerRepo.findSummariesByStatus(status, pageable);
     }
 
     @PostMapping("/customers/{id}/orders")

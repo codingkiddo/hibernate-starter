@@ -11,22 +11,28 @@ spring:
     hibernate:
       ddl-auto: validate
     properties:
+      hibernate.generate_statistics: true
       hibernate.format_sql: true
       hibernate.show_sql: false
       hibernate.jdbc.time_zone: UTC
+      # batching
       hibernate.jdbc.batch_size: 50
       hibernate.order_inserts: true
       hibernate.order_updates: true
       hibernate.jdbc.batch_versioned_data: true
       hibernate.default_batch_fetch_size: 50
+      # L2 cache (Ehcache/JCache)
+      hibernate.cache.use_second_level_cache: true
+      hibernate.cache.use_query_cache: true
+      hibernate.cache.region.factory_class: org.hibernate.cache.jcache.JCacheRegionFactory
+      hibernate.javax.cache.provider: org.ehcache.jsr107.EhcacheCachingProvider
+      #hibernate.javax.cache.uri: classpath:ehcache.xml
+      hibernate.javax.cache.missing_cache_strategy: create
   flyway:
     enabled: true
-
 logging:
   level:
-    org.hibernate.SQL: off
-    org.hibernate.orm.jdbc.bind: off
-
+    '[org.hibernate.cache]': INFO
 management:
   endpoints:
     web:
